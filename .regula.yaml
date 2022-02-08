@@ -1,0 +1,22 @@
+environment-id: 57f45965-870f-4bdc-9b86-f3427c88854e
+exclude: []
+format: text
+input-type:
+- auto
+no-built-ins: false
+no-ignore: false
+only: []
+severity: unknown
+sync: true
+# environment-id: ""
+# exclude: []
+# format: text
+# include: []
+# input-type:
+#     - auto
+# inputs: []
+# no-built-ins: false
+# no-ignore: false
+# only: []
+# severity: unknown
+# sync: false
