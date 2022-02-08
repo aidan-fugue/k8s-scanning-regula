@@ -1,0 +1,20 @@
+name: security-scan-with-regula
+on: [push]
+# Setting Fugue API ID and Secret
+env:
+  FUGUE_API_ID: ${{ secrets.FUGUE_API_ID }}
+  FUGUE_API_SECRET: ${{ secrets.FUGUE_API_SECRET }}
+jobs:
+  secure-with-regula:
+    runs-on: ubuntu-latest
+    steps:
+      # Use this to bring in repository code for GitHub Actions
+      - uses: actions/checkout@v2
+      # Getting, extracting, and moving latest version of Regula
+      - run: wget -c -nv https://github.com/$(wget -nv https://github.com/fugue/regula/releases/latest -O - | egrep '/.*/.*/.*_Linux_x86_64.tar.gz' -o)
+      - run: tar -zxf *_Linux_x86_64.tar.gz regula
+      - run: mv regula /usr/local/bin
+      # Checking version of Regula
+      - run: regula version
+      # Running Regula on infrastructure
+      - run: regula run --sync .

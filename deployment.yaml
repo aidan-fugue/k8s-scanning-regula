@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appDeployment-appA
+  annotations:
+    seccomp.security.alpha.kubernetes.io/pod: "runtime/default"
+  labels:
+    app: appA
+spec:
+  automountServiceAccountToken: false #FG_R00484
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  securityContext:
+    runAsNonRoot: true
+  template:
+    metadata:
+      labels:
+        app: nginx
+      annotations:
+        seccomp.security.alpha.kubernetes.io/pod: "runtime/default"
+    spec:
+      automountServiceAccountToken: false #FG_R00484
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        securityContext:
+          runAsNonRoot: true #FG_R00490
+          capabilities:
+            drop: ["ALL"]
+        ports:
+          - containerPort: 80
+      - name: rss-reader
+        image: busybox
+        securityContext:
+          runAsNonRoot: true #FG_R00490
+          capabilities:
+            drop: ["ALL"]
+        ports:
+          - containerPort: 88
+      volumes:
+       - name: test-volume
+       # This AWS EBS volume must already exist.
+      awsElasticBlockStore:
+        volumeID: "abc-123"
+        fsType: ext4
