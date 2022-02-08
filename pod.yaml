@@ -3,14 +3,14 @@ kind: Pod
 metadata:
   name: hello
   annotations:
-    #seccomp.security.alpha.kubernetes.io/pod: "runtime/default" #FG_R00495
+    seccomp.security.alpha.kubernetes.io/pod: "runtime/default" #FG_R00495
 spec:
-  #automountServiceAccountToken: false #FG_R00484
+  automountServiceAccountToken: false #FG_R00484
   containers:
     - name: hello
       image: busybox
       command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
       securityContext:
-        #runAsNonRoot: true #FG_R00490
-        #capabilities:
-          #drop: ["ALL"] #FG_R00491 and FG_R00493
+        runAsNonRoot: true #FG_R00490
+        capabilities:
+          drop: ["ALL"] #FG_R00491 and FG_R00493
