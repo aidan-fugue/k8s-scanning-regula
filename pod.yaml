@@ -10,7 +10,7 @@ spec:
     - name: hello
       image: busybox
       command: ['sh', '-c', 'echo "Hello, DevWeek!" && sleep 3600']
-      #securityContext:
-        #runAsNonRoot: true #FG_R00490
-        #capabilities:
-          #drop: ["ALL"] #FG_R00491 and FG_R00493
+      securityContext:
+        runAsNonRoot: true #FG_R00490
+        capabilities:
+          drop: ["ALL"] #FG_R00491 and FG_R00493
